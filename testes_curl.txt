@@ -1,0 +1,29 @@
+Lista os produtos:
+curl --location 'http://localhost:3000/produtos'
+
+Insere um novo produto:
+curl --location 'http://localhost:3000/produtos' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Mochila Gamer",
+    "fornecedor": "Vitor Machado",
+    "endereco_fornecedor": "Rua teste, 321",
+    "quantidade": 10,
+    "endereco": "Rua teste 2, 256",
+    "preco_unitario": 150.0
+}'
+
+Atualiza um produto inserido:
+curl --location --request PUT 'http://localhost:3000/produtos/5' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nome": "Mochila Gamer atualização",
+    "fornecedor": "Vitor Souza",
+    "endereco_fornecedor": "Rua teste, 321",
+    "quantidade": 10,
+    "endereco": "Rua teste 2, 256",
+    "preco_unitario": 165.0
+}'
+
+Deleta um produto existente:
+curl --location --request DELETE 'http://localhost:3000/produtos/5'
