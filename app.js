@@ -11,6 +11,7 @@ const CREATED = 201;
 const BAD_REQUEST = 400;
 const NOT_FOUND = 404;
 const INTERNAL_SERVER_ERROR = 500;
+const BAD_GATEWAY = 502;
 
 app.get('/produtos', async (req, res) => {
     try {
@@ -19,6 +20,9 @@ app.get('/produtos', async (req, res) => {
     } 
     catch (error) {
         console.error(error);
+        if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+            return res.status(BAD_GATEWAY).json({ message: 'Erro externo: Problema ao se comunicar com o servidor externo' });
+        }
         res.status(INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor' });
     }
 });
@@ -39,6 +43,9 @@ app.post('/produtos', async (req, res) => {
     } 
     catch (error) {
         console.error(error);
+        if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+            return res.status(BAD_GATEWAY).json({ message: 'Erro externo: Problema ao se comunicar com o servidor externo' });
+        }
         res.status(INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor' });
     }
 });
@@ -65,6 +72,9 @@ app.put('/produtos/:id', async (req, res) => {
     } 
     catch (error) {
         console.error(error);
+        if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+            return res.status(BAD_GATEWAY).json({ message: 'Erro externo: Problema ao se comunicar com o servidor externo' });
+        }
         res.status(INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor' });
     }
 });
@@ -83,6 +93,9 @@ app.delete('/produtos/:id', async (req, res) => {
     } 
     catch (error) {
         console.error(error);
+        if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+            return res.status(BAD_GATEWAY).json({ message: 'Erro externo: Problema ao se comunicar com o servidor externo' });
+        }
         res.status(INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor' });
     }
 });
